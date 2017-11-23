@@ -1,0 +1,47 @@
+﻿{% extends "base.html" %}
+
+{% block cus_style %}
+    body {
+        padding-top: 56px;
+    }
+
+    @media (min-width: 992px) {
+        body {
+            padding-top: 56px;
+        }
+    }
+{% endblock %}
+
+{% block nav_home %}nav-link active{% endblock %}
+
+{% block content %}
+<!-- Page Content -->
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            {% if not session.logged_in %}
+            <h1 class="mt-5">Welcome, visitor</h1>
+            <p class="lead">
+                We have more new <a href="{{url_for('article_list')}}">stories</a> today !
+            </p>
+            <p class="lead">
+                Please <a href="{{url_for('login_form')}}">Login</a> to write a new story
+                or <a href="{{url_for('signup_form')}}">sign up</a> for a new account.
+            </p>
+            {% else %}
+            <h1 class="mt-5">Welcome back, {{session.nickname}}</h1>
+            <p class="lead">
+                Go to read new <a href="{{url_for('article_list')}}">stories</a> !
+            </p>
+            {% endif %}
+            <ul class="list-unstyled">
+                <li>ECE1779-A3</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+

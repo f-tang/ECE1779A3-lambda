@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block cus_style %}
+body {
+padding-top: 256px;
+}
+@media (min-width: 992px) {
+body {
+padding-top: 108px;
+}
+}
+{% endblock %}
+
+{% block nav_home %}nav-link{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>New Story</h1>
+    <br>
+    {% from "_formhelper.html" import render_field %}
+    <form method="post" action="{{ url_for('new_article') }}">
+        {{ form.csrf_token }}
+        <dl>
+            {{render_field(form.title, size="60")}}
+            {{render_field(form.tag)}}
+            {{render_field(form.content, cols="70", rows="10") }}
+
+        </dl>
+        <p><input class="btn btn-primary" type="submit" value=Submit></p>
+    </form>
+
+    {% if error %}
+        <p class="error"><strong>Error: </strong>{{error}}</p>
+    {% endif %}
+</div>
+
+
+{% endblock %}
+
