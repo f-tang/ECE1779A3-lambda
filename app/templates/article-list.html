@@ -31,21 +31,22 @@ padding-bottom: 0px;
   <div class="row text-center text-xs-left">
 
       <div class="col-lg-2 col-md-2 col-sm-3 col-4">
-            <img class="img-fluid img-thumbnail" src="#" alt="">
-            <div class = "caption">
-                <a href="{{url_for('new_article')}}" class="d-block mb-8 h-5">
+          <a href="{{ url_for('new_article') }}" class="d-block mb-8 h-5">
+            <img class="img-fluid img-thumbnail" src="{{ url_for('static', filename='cover_pics/create.jpg') }}" alt="">
+                <div class = "caption">
                     <p>Click here to start a new story!</p>
-                </a>
-            </div>
+                </div>
+          </a>
+
         </div>
 
         {% for article in articles %}
 
         <div class="col-lg-2 col-md-2 col-sm-3 col-4">
 
-              <a href="{{url_for('full_article',article_id = article.article_id)}}" class="d-block mb-8 h-5">
+              <a href="{{ url_for('full_article',article_id = article.article_id) }}" class="d-block mb-8 h-5">
 
-              <img class="img-fluid img-thumbnail" src="{{ article.cover_pic }}" alt="">
+              <img class="img-fluid img-thumbnail" src="{{ url_for('static', filename=article.cover_pic) }}" alt="">
               <div class = "caption"> <p>{{article.title}}</p></div>
 
               </a>

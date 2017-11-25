@@ -26,7 +26,7 @@ def article_list():
         articletable = dynamodb.Table('articles')
         usertable = dynamodb.Table('users')
 
-        cover_url = "https://s3.amazonaws.com/ece1779-ft/cover_pics/"
+        cover_path = "cover_pics/"
 
         # fetch all articles
         articles = []
@@ -44,7 +44,7 @@ def article_list():
             article = classes.article(
                 article_id=item['ArticleID'],
                 title=item['Title'],
-                cover_pic=escape_string(cover_url + item['Tag'] + '.jpg'),
+                cover_pic=escape_string(cover_path + item['Tag'] + '.jpg'),
                 tag=item['Tag'],
                 starter_id=item['StarterID'],
                 starter_name=starter_name,
@@ -73,7 +73,7 @@ def article_list_tag(tag):
         articletable = dynamodb.Table('articles')
         usertable = dynamodb.Table('users')
 
-        cover_url = "https://s3.amazonaws.com/ece1779-ft/cover_pics/"
+        cover_path = "cover_pics/"
 
         # fetch all articles
         articles = []
@@ -94,7 +94,7 @@ def article_list_tag(tag):
             article = classes.article(
                 article_id=item['ArticleID'],
                 title=item['Title'],
-                cover_pic=escape_string(cover_url + item['Tag'] + '.jpg'),
+                cover_pic=escape_string(cover_path + item['Tag'] + '.jpg'),
                 tag=item['Tag'],
                 starter_id=item['StarterID'],
                 starter_name=starter_name,
@@ -117,7 +117,7 @@ def article_list_tag(tag):
 @webapp.route("/article/<article_id>")
 def full_article(article_id):
     try:
-        cover_url = "https://s3.amazonaws.com/ece1779-ft/cover_pics/"
+        cover_path = "cover_pics/"
         s3_url = "https://s3.amazonaws.com/ece1779-ft/"
         chapter_form = classes.ChapterForm(request.form)
         comment_form = classes.CommentForm(request.form)
@@ -151,7 +151,7 @@ def full_article(article_id):
         article = classes.article(
             article_id=item['ArticleID'],
             title=item['Title'],
-            cover_pic=escape_string(cover_url + item['Tag'] + '.jpg'),
+            cover_pic=escape_string(cover_path + item['Tag'] + '.jpg'),
             tag=item['Tag'],
             starter_id=item['StarterID'],
             starter_name=starter_name,
