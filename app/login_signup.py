@@ -149,4 +149,4 @@ def logout():
     session.clear()
     flash("You have been logged out!")
     gc.collect()
-    return redirect(url_for('main'))
+    return redirect(url_for('article_list'))

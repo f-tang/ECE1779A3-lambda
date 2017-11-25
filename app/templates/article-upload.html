@@ -18,7 +18,7 @@ padding-top: 108px;
     <h1>New Story</h1>
     <br>
     {% from "_formhelper.html" import render_field %}
-    <form method="post" action="{{ url_for('new_article') }}">
+    <form method="post" action="{{url_for('new_article')}}">
         {{ form.csrf_token }}
         <dl>
             {{render_field(form.title, size="60")}}

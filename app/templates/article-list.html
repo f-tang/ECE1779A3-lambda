@@ -4,13 +4,15 @@
 {% block cus_style %}
 body {
 padding-top: 56px;
+padding-bottom: 0px;
 }
 @media (min-width: 992px) {
 body {
 padding-top: 56px;
+padding-bottom: 0px;
 }
 }
-}
+
 
 <link href="{{url_for('static', filename='resources/css/thumbnail-gallery.css')}}" rel="stylesheet">
 {% endblock %}
@@ -19,33 +21,44 @@ padding-top: 56px;
 
 {% block content %}
 <!-- Page Content -->
+
+
 <br>
 <div class="container">
-    <h1 class="my-4 text-center text-lg-left">Gallery</h1>
-    <ul class="list-unstyled">
-        Click <a href="{{url_for('new_article')}}">here</a> to upload more images
-    </ul>
-    <div class="row text-center text-xs-left">
-        {% for article in articles %}
-            <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                <div class="caption">
-                    <a href="{{url_for('full_article', article_id=article.article_id)}}" class="d-block mb-8 h-5">
-                        <img class="img-fluid img-thumbnail" src="{{ article.cover_pic }}" alt="">
-                    </a>
-                    {{ article.title }}
-                </div>
+    <h1 class="my-4 text-center text-lg-left">Story List</h1>
+    <br>
+    <br>
+  <div class="row text-center text-xs-left">
+
+      <div class="col-lg-2 col-md-2 col-sm-3 col-4">
+            <img class="img-fluid img-thumbnail" src="#" alt="">
+            <div class = "caption">
+                <a href="{{url_for('new_article')}}" class="d-block mb-8 h-5">
+                    <p>Click here to start a new story!</p>
+                </a>
             </div>
+        </div>
+
+        {% for article in articles %}
+
+        <div class="col-lg-2 col-md-2 col-sm-3 col-4">
+
+              <a href="{{url_for('full_article',article_id = article.article_id)}}" class="d-block mb-8 h-5">
+
+              <img class="img-fluid img-thumbnail" src="{{ article.cover_pic }}" alt="">
+              <div class = "caption"> <p>{{article.title}}</p></div>
+
+              </a>
+        </div>
+
         {% endfor %}
+
+
     </div>
 </div>
 
-<!-- Footer -->
-<footer class="py-5 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; ECE1779-A2 2017</p>
-    </div>
-    <!-- /.container -->
-</footer>
+
+
 
 {% endblock %}
 <!-- /.container -->

@@ -18,7 +18,7 @@ padding-top: 108px;
     <h1>Sign Up for Free</h1>
     <br>
     {% from "_formhelper.html" import render_field %}
-    <form method="post" action="{{ url_for('signup_form') }}">
+    <form method="post" action="{{url_for('signup_form')}}">
         {{ form.csrf_token }}
         <dl>
             {{render_field(form.username)}}

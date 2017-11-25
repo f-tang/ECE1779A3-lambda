@@ -44,7 +44,7 @@ def article_list():
             article = classes.article(
                 article_id=item['ArticleID'],
                 title=item['Title'],
-                cover_pic=escape_string(cover_url + item['Tag']),
+                cover_pic=escape_string(cover_url + item['Tag'] + '.jpg'),
                 tag=item['Tag'],
                 starter_id=item['StarterID'],
                 starter_name=starter_name,
@@ -94,7 +94,7 @@ def article_list_tag(tag):
             article = classes.article(
                 article_id=item['ArticleID'],
                 title=item['Title'],
-                cover_pic=escape_string(cover_url + item['Tag']),
+                cover_pic=escape_string(cover_url + item['Tag'] + '.jpg'),
                 tag=item['Tag'],
                 starter_id=item['StarterID'],
                 starter_name=starter_name,
@@ -151,7 +151,7 @@ def full_article(article_id):
         article = classes.article(
             article_id=item['ArticleID'],
             title=item['Title'],
-            cover_pic=escape_string(cover_url + item['Tag']),
+            cover_pic=escape_string(cover_url + item['Tag'] + '.jpg'),
             tag=item['Tag'],
             starter_id=item['StarterID'],
             starter_name=starter_name,

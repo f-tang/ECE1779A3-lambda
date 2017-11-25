@@ -18,7 +18,7 @@ padding-top: 108px;
     <h1>Please Login:</h1>
     <br>
     {% from "_formhelper.html" import render_field %}
-    <form action="{{ url_for('login_form') }}" method="post">
+    <form action="{{url_for('login_form')}}" method="post">
         {{ form.csrf_token }}
         <dl>
             {{render_field(form.username)}}

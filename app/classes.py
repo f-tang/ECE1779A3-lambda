@@ -45,7 +45,9 @@ class ArticleForm(FlaskForm):
     )
     tag = SelectField(
         label='Tag',
-        choices=[('fiction', 'Fiction'), ('marvel', 'Marvel'), ('fairytale', 'Fairytale')]
+        choices=[('action', 'Action'), ('adventure', 'Adventure'),
+                 ('comedy', 'Comedy'), ('fiction', 'Sci-fi'),
+                 ('marvel', 'Marvel'), ('romance', 'Romance')]
     )
 
 class ChapterForm(FlaskForm):

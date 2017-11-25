@@ -2,17 +2,15 @@
 
 {% block cus_style %}
     body {
-        padding-top: 56px;
+        padding-top:0px;
+
     }
 
     @media (min-width: 992px) {
         body {
-            padding-top: 56px;
-        }
-    }
+            padding-top: 0px;
 
-    textarea {
-       resize: none;
+        }
     }
 {% endblock %}
 
@@ -20,94 +18,202 @@
 
 {% block content %}
 <!-- Page Content -->
-<br>
-<div class="container">
-    <h1>{{ article.title }}</h1>
-    <div class="row">
-        {% for chapter in chapters %}
-        <div class="col-lg-12">
-            <textarea class="form-control" readonly>{{ chapter.content }}</textarea>
-        </div>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+<link href="{{url_for('static', filename='resources/css/timeline.css')}}" rel="stylesheet" type="text/css">
 
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <a href="#CommentList{{chapter.chapter_id}}" data-toggle="collapse" aria-expanded="true" aria-controls="CommentList{{chapter.chapter_id}}">
-                        comment
-                    </a>
-                </div>
-                <div class="col">
-                    <form inline method="post" action="{{ url_for('thumbup_chapter', article_id = article.article_id, chapter_id = chapter.chapter_id) }}">
-                        <input class="btn btn-primary" type="submit" value="thumbup">
-                    </form>
-                </div>
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ribeye">
+
+
+<br>
+<br>
+
+
+<div class="container">
+    <h1 class="text-center ribeye">{{ article.title }}<br></h1>
+    <h3 class="text-center ribeye">starter :{{article.starter_name}}</h3>
+
+</div>
+<br><br>
+
+<div class="container">
+    {% for chapter in chapters %}
+    <!-- Timeline -->
+    <div class="timeline">
+        <!-- Line component -->
+        <div class="line text-muted"></div>
+        <!-- Separator -->
+        <div class="separator text-muted">
+            <time>{{chapter.create_time}}</time>
+        </div>
+        <!-- /Separator -->
+
+        <!-- Panel -->
+        <article class="panel panel-danger panel-outline">
+
+            <!-- Icon -->
+            <div class="panel-heading icon">
+                <i class="glyphicon glyphicon-heart"></i>
             </div>
-            <div class="collapse show" id="CommentList{{chapter.chapter_id}}">
+            <!-- /Icon -->
+
+            <!-- Body -->
+            <div class="panel-body">
+           <strong>{{chapter.author_id}}</strong> created a new chapter.
+            </div>
+            <!-- /Body -->
+
+        </article>
+        <!-- /Panel -->
+
+
+        <!-- Panel -->
+        <article class="panel panel-primary">
+
+            <!-- Icon -->
+            <div class="panel-heading icon">
+                <i class="glyphicon glyphicon-plus"></i>
+            </div>
+            <!-- /Icon -->
+
+            <!-- Body -->
+            <div class="panel-body">
+               <pre>{{ chapter.content }}</pre>
+            </div>
+            <!-- /Body -->
+
+            <!-- Footer -->
+
+            <div class="panel-footer">
                 <div class="container">
+                    <div class="row" style="text-align:right;">
+                        <div class="col-sm-11 " role="group" >
+                            <a href="#CommentList{{chapter.chapter_id}}" class="btn btn-sm btn-primary" data-toggle="collapse" aria-expanded="true" aria-controls="CommentList{{chapter.chapter_id}}">
+                        Comment</a>
+                        </div>
+
+
+                        <div class="col-sm-1">
+                            <form inline method="post" action="{{ url_for('thumbup_chapter', article_id = article.article_id, chapter_id = chapter.chapter_id) }}">
+                                <button type="submit" class="btn btn-sm btn-primary">
+                                    <span class="fa fa-thumbs-up fa-1x"></span> &nbsp &nbsp{{chapter.thumb_num}}
+                                </button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="collapse" id="CommentList{{chapter.chapter_id}}">
+                    <div class="container">
+                        <br>
+                        {% if chapter.comment %}
+                        {% for comment in chapter.comment %}
+                        <br>
+                        <div class="row">
+                            <textarea class="form-control" readonly>{{comment.commenter_id}} reply: {{ comment.content }}</textarea>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <p class="font-italic">No comment for this chapter.</p>
+                        {% endif %}
+                        <br>
+
                     <div class="row">
                         {% if session.logged_in %}
-                        <a href="#CommentForm{{chapter.chapter_id}}" data-toggle="collapse" aria-expanded="false" aria-controls="CommentForm{{chapter.chapter_id}}">
-                            add comment
-                        </a>
+                        <div>
+                            <a href="#CommentForm{{chapter.chapter_id}}" class="btn btn-sm btn-primary" data-toggle="collapse" aria-expanded="false" aria-controls="CommentForm{{chapter.chapter_id}}">
+                            Add Comment
+                            </a>
+                        </div>
                         {% from "_formhelper.html" import render_field %}
                         <div class="collapse" id="CommentForm{{chapter.chapter_id}}">
-                            <div class="container">
+                            <div class="panel-body">
                                 <form method="post" action="{{ url_for('new_comment', article_id = article.article_id, chapter_id = chapter.chapter_id) }}">
                                     {{ commentform.csrf_token }}
                                     <dl>
-                                        {{render_field(commentform.content, cols="35", rows="5") }}
+                                        {{render_field(commentform.content, cols="70", rows="5") }}
                                     </dl>
                                     <p><input class="btn btn-primary" type="submit" value=Submit></p>
                                 </form>
                             </div>
                         </div>
+
+
                         {% else %}
                         <p class="font-italic">Please <a href="{{url_for('login_form')}}">login</a> to comment.</p>
                         {% endif %}
                     </div>
-                    {% if chapter.comment %}
-                    {% for comment in chapter.comment %}
-                    <div class="row">
-                        <textarea class="form-control" readonly>{{ comment.content }}</textarea>
-                    </div>
-                    {% endfor %}
-                    {% else %}
-                    <p class="font-italic">No comment for this chapter.</p>
-                    {% endif %}
+
                 </div>
             </div>
-        </div>
-        <br>
+
+            </div>
+            <!-- /Footer -->
+
+
+        </article>
+
+
+        <!-- /Panel -->
         {% endfor %}
+
+        <!-- Separator -->
+        <div class="separator text-muted">
+        </div>
+        <!-- /Separator -->
+
+        <!-- Panel -->
+        <article class="panel panel-success">
+
+            <!-- Icon -->
+            <div class="panel-heading icon">
+                <i class="glyphicon glyphicon-plus"></i>
+            </div>
+            <!-- /Icon -->
+
+            <!-- Heading -->
+            <div class="panel-heading">
+                <h2 class="panel-title"><b>Continue it</b></h2>
+            </div>
+            <!-- /Heading -->
+
+            <!-- Body -->
+            <div class="panel-body">
+                <div class="container">
+                    {% if session.logged_in %}
+                    {% from "_formhelper.html" import render_field %}
+                    <form method="post" action="{{ url_for('new_chapter', article_id = article.article_id) }}">
+                        {{ chapterform.csrf_token }}
+                        <dl>
+                            {{render_field(chapterform.content, cols="70", rows="15") }}
+                        </dl>
+                        <p><input class="btn btn-primary" type="submit" value=Submit></p>
+                    </form>
+                    {% if error %}
+                    <p class="error"><strong>Error: </strong>{{error}}</p>
+                    {% endif %}
+                    {% else %}
+                    <p class="lead">Please <a href="{{url_for('login_form')}}">Login</a> to write a new chapter</p>
+                    {% endif %}
+                </div>
+
+            </div>
+            <!-- /Body -->
+
+
+        </article>
+        <!-- /Panel -->
+
     </div>
+    <!-- /Timeline -->
+
 </div>
-<br>
-<div class="container">
-    {% if session.logged_in %}
-    <h5>New Chapter</h5>
-    {% from "_formhelper.html" import render_field %}
-    <form method="post" action="{{ url_for('new_chapter', article_id = article.article_id) }}">
-        {{ chapterform.csrf_token }}
-        <dl>
-            {{render_field(chapterform.content, cols="70", rows="10") }}
-        </dl>
-        <p><input class="btn btn-primary" type="submit" value=Submit></p>
-    </form>
-
-    {% if error %}
-    <p class="error"><strong>Error: </strong>{{error}}</p>
-    {% endif %}
-
-    {% else %}
-    <p class="lead">
-        Please <a href="{{url_for('login_form')}}">Login</a> to write a new chapter
-    </p>
-    {% endif %}
+</div>
+</div>
 </div>
 
-<script>
-    $("textarea").height( $("textarea")[0].scrollHeight + 10 );
-</script>
+
+
 {% endblock %}
 
 
