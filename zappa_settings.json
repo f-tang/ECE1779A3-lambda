@@ -2,7 +2,7 @@
     "dev": {
        "project_name": "Story_solitaire",
        "keep_warm": false,
-       "debug": true,
+       "debug": false,
        "log_level": "DEBUG",
        "s3_bucket": "ece1779-ft",
        "app_function": "app.webapp",

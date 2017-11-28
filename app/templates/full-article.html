@@ -30,7 +30,7 @@
 
 <div class="container">
     <h1 class="text-center ribeye">{{ article.title }}<br></h1>
-    <h3 class="text-center ribeye">starter :{{article.starter_name}}</h3>
+    <h3 class="text-center ribeye">starter: {{article.starter_name}}</h3>
 
 </div>
 <br><br>
@@ -58,7 +58,7 @@
 
             <!-- Body -->
             <div class="panel-body">
-           <strong>{{chapter.author_id}}</strong> created a new chapter.
+           <strong>{{chapter.author_name}}</strong> created a new chapter.
             </div>
             <!-- /Body -->
 
@@ -110,7 +110,7 @@
                         {% for comment in chapter.comment %}
                         <br>
                         <div class="row">
-                            <textarea class="form-control" readonly>{{comment.commenter_id}} reply: {{ comment.content }}</textarea>
+                            <textarea class="form-control" readonly>{{comment.commenter_name}} reply: {{ comment.content }}</textarea>
                         </div>
                         {% endfor %}
                         {% else %}
@@ -208,9 +208,7 @@
     <!-- /Timeline -->
 
 </div>
-</div>
-</div>
-</div>
+
 
 
 
